@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteka | Dom Skrzypcowy J&S Fine Violins</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --navy: #1a2744; --navy-deep: #0e1829; --navy-mid: #243154;
+    --gold: #b8965a; --gold-light: #d4b07a; --gold-pale: #f0e4cc;
+    --cream: #ffffff; --cream-dark: #e8e8e8; --white: #ffffff;
+    --text-body: #2c2c2c; --text-muted: #6b6358;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: #fff; color: var(--text-body); font-family: "Cormorant Garamond", Georgia, serif; font-size: 18px; line-height: 1.7; overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(184,150,90,0.2);
+  }
+  .nav-logo { font-family: "Cinzel", serif; font-size: 0.8rem; letter-spacing: 0.25em; color: var(--navy); text-transform: uppercase; text-decoration: none; }
+  nav ul { display: flex; gap: 3rem; list-style: none; }
+  nav ul a { font-family: "Cinzel", serif; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--navy); text-decoration: none; position: relative; transition: color 0.3s; }
+  nav ul a::after { content: ""; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+  nav ul a:hover, nav ul a.active { color: var(--gold); }
+  nav ul a:hover::after, nav ul a.active::after { transform: scaleX(1); }
+  .nav-cta { font-family: "Cinzel", serif; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: #fff; background: var(--navy); padding: 0.7rem 1.8rem; text-decoration: none; transition: background 0.3s; }
+  .nav-cta:hover { background: var(--gold); }
+
+  footer { background: var(--navy-deep); padding: 3rem 4rem 2rem; border-top: 1px solid rgba(184,150,90,0.2); }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 2rem; }
+  .footer-brand { font-family: "Cinzel", serif; color: #fff; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; }
+  .footer-brand span { display: block; color: var(--gold); font-size: 0.6rem; margin-top: 0.3rem; letter-spacing: 0.3em; }
+  .footer-links { display: flex; gap: 2.5rem; list-style: none; }
+  .footer-links a { font-family: "Cinzel", serif; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(247,243,237,0.4); text-decoration: none; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { max-width: 1200px; margin: 0 auto; text-align: center; font-size: 0.75rem; color: rgba(247,243,237,0.2); font-family: "Cinzel", serif; letter-spacing: 0.1em; }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    nav ul { display: none; }
+    footer { padding: 2.5rem 1.5rem 1.5rem; }
+    .footer-inner { flex-direction: column; gap: 1.5rem; text-align: center; }
+  }
+
+
+  .page-header {
+    padding: 9rem 0 5rem; background: var(--navy-deep); text-align: center; position: relative; overflow: hidden;
+  }
+  .page-header::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 80% at 50% 100%, rgba(184,150,90,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .page-eyebrow { font-family: "Cinzel", serif; font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .page-header h1 { font-family: "Cinzel", serif; font-size: clamp(2rem,4vw,3.5rem); font-weight: 500; color: #fff; margin-bottom: 1rem; line-height: 1.2; }
+  .page-header p { font-size: 1rem; font-style: italic; color: rgba(255,255,255,0.5); font-weight: 300; max-width: 580px; margin: 0 auto; }
+
+  .library-section { padding: 6rem 4rem; max-width: 1300px; margin: 0 auto; }
+  .lib-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+
+  .lib-card {
+    border: 1px solid var(--cream-dark); padding: 2.5rem;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .lib-card:hover { transform: translateY(-5px); box-shadow: 0 16px 50px rgba(26,39,68,0.08); border-color: rgba(184,150,90,0.4); }
+
+  .lib-card-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+  .lib-icon { font-size: 1.2rem; color: var(--gold); flex-shrink: 0; }
+  .lib-card-title { font-family: "Cinzel", serif; font-size: 1rem; font-weight: 500; color: var(--navy); line-height: 1.3; }
+  .lib-card-desc { font-size: 0.92rem; color: var(--text-muted); font-weight: 300; line-height: 1.75; margin-bottom: 1.5rem; flex: 1; }
+
+  .lib-articles { list-style: none; border-top: 1px solid var(--cream-dark); padding-top: 1.2rem; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0; }
+  .lib-articles li { border-bottom: 1px solid var(--cream-dark); }
+  .lib-articles li a {
+    display: block; padding: 0.6rem 0;
+    font-size: 0.88rem; color: var(--text-muted); text-decoration: none;
+    font-style: italic; transition: color 0.25s, padding-left 0.25s;
+  }
+  .lib-articles li a:hover { color: var(--navy); padding-left: 0.5rem; }
+
+  .lib-card-cta {
+    font-family: "Cinzel", serif; font-size: 0.6rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold); text-decoration: none;
+    border-bottom: 1px solid rgba(184,150,90,0.4); padding-bottom: 1px;
+    align-self: flex-start; transition: color 0.3s, border-color 0.3s;
+    margin-top: auto;
+  }
+  .lib-card-cta:hover { color: var(--navy); border-color: var(--navy); }
+
+  .lib-intro { max-width: 1300px; margin: 0 auto; padding: 4rem 4rem 0; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; border-bottom: 1px solid var(--cream-dark); padding-bottom: 4rem; }
+  .lib-intro-text h2 { font-family: "Cinzel", serif; font-size: clamp(1.4rem,2vw,2rem); font-weight: 500; color: var(--navy); margin-bottom: 1.2rem; line-height: 1.3; }
+  .lib-intro-text p { font-size: 0.98rem; color: var(--text-muted); font-weight: 300; line-height: 1.85; }
+  .lib-intro-stats { display: flex; flex-direction: column; gap: 0; border-left: 1px solid var(--cream-dark); padding-left: 3rem; }
+  .lib-stat { padding: 1.2rem 0; border-bottom: 1px solid var(--cream-dark); }
+  .lib-stat:last-child { border-bottom: none; }
+  .lib-stat-num { font-family: "Cinzel", serif; font-size: 2.2rem; color: var(--navy); line-height: 1; display: block; }
+  .lib-stat-label { font-family: "Cinzel", serif; font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-top: 0.3rem; display: block; }
+
+  @media (max-width: 1100px) { .lib-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 700px) { .lib-grid { grid-template-columns: 1fr; } .library-section, .lib-intro { padding: 3rem 1.5rem; } .lib-intro { grid-template-columns: 1fr; } .lib-intro-stats { border-left: none; padding-left: 0; border-top: 1px solid var(--cream-dark); padding-top: 2rem; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Dom Skrzypcowy<br>J&S Fine Violins</a>
+  <ul>
+    <li><a href="index.html#historia">Historia</a></li>
+    <li><a href="index.html#filary">Rzemiosło</a></li>
+    <li><a href="kolekcja.html">Kolekcja</a></li>
+    <li><a href="index.html#dla-kogo">Dla Kogo</a></li>
+    <li><a href="biblioteka.html" class="active">Biblioteka</a></li>
+    <li><a href="index.html#kontakt">Kontakt</a></li>
+  </ul>
+  <a href="index.html#kontakt" class="nav-cta">Umów Wizytę</a>
+</nav>
+
+<div class="page-header">
+  <p class="page-eyebrow">Dom Skrzypcowy · J&S Fine Violins</p>
+  <h1>Biblioteka</h1>
+  <p>Wiedza o skrzypcach, lutnictwie i muzyce – zebrana w jednym miejscu dla muzyków, kolekcjonerów i miłośników instrumentów smyczkowych.</p>
+</div>
+
+<div class="lib-intro">
+  <div class="lib-intro-text reveal">
+    <h2>Źródło wiedzy o świecie skrzypiec</h2>
+    <p>Biblioteka Dom Skrzypcowego to zbiór artykułów, esejów i poradników tworzonych z myślą o każdym, kto chce głębiej zrozumieć świat instrumentów smyczkowych. Znajdziesz tu zarówno teksty historyczne, jak i praktyczne wskazówki dla muzyka-użytkownika.</p>
+    <p style="margin-top:1rem;">Treści pisane są przez Łukasza Jesisa i Klemensa Siatkowskiego – z perspektywy kolekcjonera i mistrza lutnika, łączącej pasję z rzemiosłem.</p>
+  </div>
+  <div class="lib-intro-stats reveal">
+    <div class="lib-stat">
+      <span class="lib-stat-num">6</span>
+      <span class="lib-stat-label">Działy tematyczne</span>
+    </div>
+    <div class="lib-stat">
+      <span class="lib-stat-num">24+</span>
+      <span class="lib-stat-label">Artykuły i eseje</span>
+    </div>
+    <div class="lib-stat">
+      <span class="lib-stat-num">400+</span>
+      <span class="lib-stat-label">Lat historii w tekstach</span>
+    </div>
+  </div>
+</div>
+
+<div class="library-section">
+  <div class="lib-grid">
+    
+    <div class="lib-card reveal">
+      <div class="lib-card-header">
+        <span class="lib-icon">◈</span>
+        <h2 class="lib-card-title">Historia skrzypiec</h2>
+      </div>
+      <p class="lib-card-desc">Od renesansowych korzeni po złoty wiek Cremony. Ewolucja formy, brzmienia i techniki lutniczej na przestrzeni stuleci.</p>
+      <ul class="lib-articles"><li><a href="historia-skrzypiec.html">Narodziny skrzypiec – XV i XVI wiek</a></li>
+<li><a href="historia-skrzypiec.html">Złoty wiek Cremony</a></li>
+<li><a href="historia-skrzypiec.html">Szkoły lutnicze Europy</a></li>
+<li><a href="historia-skrzypiec.html">Skrzypce w epoce baroku i romantyzmu</a></li></ul>
+      <a href="historia-skrzypiec.html" class="lib-card-cta">Czytaj więcej →</a>
+    </div>
+    <div class="lib-card reveal">
+      <div class="lib-card-header">
+        <span class="lib-icon">✦</span>
+        <h2 class="lib-card-title">Mistrzowie lutnictwa</h2>
+      </div>
+      <p class="lib-card-desc">Portrety wielkich lutników – od Amati i Stradivariego po współczesnych twórców. Kim byli ludzie, którzy zmienili historię muzyki?</p>
+      <ul class="lib-articles"><li><a href="mistrzowie-lutnictwa.html">Antonio Stradivari – legenda Cremony</a></li>
+<li><a href="mistrzowie-lutnictwa.html">Rodzina Guarneri</a></li>
+<li><a href="mistrzowie-lutnictwa.html">Szkoła Jakob Stainera</a></li>
+<li><a href="mistrzowie-lutnictwa.html">Współcześni mistrzowie lutnictwa</a></li></ul>
+      <a href="mistrzowie-lutnictwa.html" class="lib-card-cta">Czytaj więcej →</a>
+    </div>
+    <div class="lib-card reveal">
+      <div class="lib-card-header">
+        <span class="lib-icon">♩</span>
+        <h2 class="lib-card-title">Dźwięk i akustyka</h2>
+      </div>
+      <p class="lib-card-desc">Czym jest dobry dźwięk? Jak drewno, lakier i setup wpływają na barwę i nośność instrumentu? Nauka w służbie muzyki.</p>
+      <ul class="lib-articles"><li><a href="dźwięk-i-akustyka.html">Fizyka brzmienia skrzypiec</a></li>
+<li><a href="dźwięk-i-akustyka.html">Rola lakieru w brzmieniu</a></li>
+<li><a href="dźwięk-i-akustyka.html">Drewno – wybór i dojrzewanie</a></li>
+<li><a href="dźwięk-i-akustyka.html">Setup a potencjał brzmieniowy</a></li></ul>
+      <a href="dźwięk-i-akustyka.html" class="lib-card-cta">Czytaj więcej →</a>
+    </div>
+    <div class="lib-card reveal">
+      <div class="lib-card-header">
+        <span class="lib-icon">⬡</span>
+        <h2 class="lib-card-title">Renowacja i konserwacja</h2>
+      </div>
+      <p class="lib-card-desc">Jak wygląda proces przywracania instrumentu do życia? Zasady konserwatorskie, tradycyjne materiały i etyka renowacji.</p>
+      <ul class="lib-articles"><li><a href="renowacja-i-konserwacja.html">Etyka renowacji instrumentów historycznych</a></li>
+<li><a href="renowacja-i-konserwacja.html">Naprawa płyty wierzchniej</a></li>
+<li><a href="renowacja-i-konserwacja.html">Rekonstrukcja podstawnika i duszy</a></li>
+<li><a href="renowacja-i-konserwacja.html">Pielęgnacja skrzypiec na co dzień</a></li></ul>
+      <a href="renowacja-i-konserwacja.html" class="lib-card-cta">Czytaj więcej →</a>
+    </div>
+    <div class="lib-card reveal">
+      <div class="lib-card-header">
+        <span class="lib-icon">◇</span>
+        <h2 class="lib-card-title">Kolekcjonerstwo i inwestycje</h2>
+      </div>
+      <p class="lib-card-desc">Instrumenty jako dzieła sztuki i lokaty kapitału. Jak oceniać wartość, czytać certyfikaty i budować kolekcję z głową.</p>
+      <ul class="lib-articles"><li><a href="kolekcjonerstwo-i-inwestycje.html">Wartość instrumentu historycznego</a></li>
+<li><a href="kolekcjonerstwo-i-inwestycje.html">Certyfikat autentyczności – co oznacza?</a></li>
+<li><a href="kolekcjonerstwo-i-inwestycje.html">Jak budować kolekcję</a></li>
+<li><a href="kolekcjonerstwo-i-inwestycje.html">Rynek instrumentów historycznych</a></li></ul>
+      <a href="kolekcjonerstwo-i-inwestycje.html" class="lib-card-cta">Czytaj więcej →</a>
+    </div>
+    <div class="lib-card reveal">
+      <div class="lib-card-header">
+        <span class="lib-icon">❧</span>
+        <h2 class="lib-card-title">Porady praktyczne</h2>
+      </div>
+      <p class="lib-card-desc">Wiedza dla muzyka-użytkownika. Jak dobrać instrument, zadbać o smyczek, przechowywać skrzypce i rozmawiać z lutnikiem.</p>
+      <ul class="lib-articles"><li><a href="porady-praktyczne.html">Jak wybrać skrzypce</a></li>
+<li><a href="porady-praktyczne.html">Smyczek – wybór i pielęgnacja</a></li>
+<li><a href="porady-praktyczne.html">Przechowywanie i transport</a></li>
+<li><a href="porady-praktyczne.html">Kiedy iść do lutnika?</a></li></ul>
+      <a href="porady-praktyczne.html" class="lib-card-cta">Czytaj więcej →</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">Dom Skrzypcowy<span>J&S Fine Violins</span></div>
+    <ul class="footer-links">
+      <li><a href="index.html#historia">Historia</a></li>
+      <li><a href="index.html#filary">Rzemiosło</a></li>
+      <li><a href="kolekcja.html">Kolekcja</a></li>
+      <li><a href="biblioteka.html">Biblioteka</a></li>
+      <li><a href="index.html#kontakt">Kontakt</a></li>
+    </ul>
+  </div>
+  <p class="footer-copy">© 2025 Dom Skrzypcowy J&S Fine Violins. Wszelkie prawa zastrzeżone.</p>
+</footer>
+<script>
+  document.querySelectorAll(".reveal").forEach((el, i) => {
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { setTimeout(() => el.classList.add("visible"), i * 60); }
+    }, { threshold: 0.1 }).observe(el);
+  });
+</script>
+</body>
+</html>

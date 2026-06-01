@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kolekcja | Dom Skrzypcowy J&S Fine Violins</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2744;
+    --navy-deep: #0e1829;
+    --navy-mid: #243154;
+    --gold: #b8965a;
+    --gold-light: #d4b07a;
+    --gold-pale: #f0e4cc;
+    --cream: #ffffff;
+    --cream-dark: #e8e8e8;
+    --white: #ffffff;
+    --text-body: #2c2c2c;
+    --text-muted: #6b6358;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #fff;
+    color: var(--text-body);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(184,150,90,0.2);
+  }
+  nav .nav-logo {
+    font-family: "Cinzel", serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    color: var(--navy);
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  nav ul { display: flex; gap: 3rem; list-style: none; }
+  nav ul a {
+    font-family: "Cinzel", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--navy);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s;
+  }
+  nav ul a::after {
+    content: ""; position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--gold);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  nav ul a:hover { color: var(--gold); }
+  nav ul a:hover::after, nav ul a.active::after { transform: scaleX(1); }
+  nav ul a.active { color: var(--gold); }
+  nav .nav-cta {
+    font-family: "Cinzel", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--navy);
+    padding: 0.7rem 1.8rem;
+    text-decoration: none;
+    transition: background 0.3s;
+  }
+  nav .nav-cta:hover { background: var(--gold); }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 9rem 0 5rem;
+    background: var(--navy-deep);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 80% at 50% 100%, rgba(184,150,90,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .page-header-eyebrow {
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .page-header h1 {
+    font-family: "Cinzel", serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .page-header p {
+    font-size: 1rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.5);
+    font-weight: 300;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+
+  /* GRID */
+  .collection-section { padding: 5rem 4rem; max-width: 1400px; margin: 0 auto; }
+  .instruments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+    gap: 3.5rem;
+  }
+
+  /* INSTRUMENT CARD */
+  .instrument-card {
+    background: #fff;
+    border: 1px solid var(--cream-dark);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  .instrument-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(26,39,68,0.1);
+  }
+
+  /* Photo area */
+  .card-photo {
+    position: relative;
+    aspect-ratio: 4/3;
+    background: var(--navy-deep);
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    display: block;
+  }
+  .instrument-card:hover .card-photo img { transform: scale(1.04); }
+  .card-photo-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 1rem;
+    background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-mid) 100%);
+  }
+  .card-photo-placeholder svg { opacity: 0.25; }
+  .card-photo-placeholder span {
+    font-family: "Cinzel", serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+  .card-era-badge {
+    position: absolute; top: 1rem; left: 1rem;
+    background: var(--gold);
+    color: var(--navy-deep);
+    font-family: "Cinzel", serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+  }
+  .card-sold-badge {
+    position: absolute; top: 1rem; right: 1rem;
+    background: rgba(14,24,41,0.85);
+    color: rgba(255,255,255,0.7);
+    font-family: "Cinzel", serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+  }
+
+  /* Card body */
+  .card-body { padding: 2.5rem; }
+  .card-maker {
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+  .card-name {
+    font-family: "Cinzel", serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 0.4rem;
+    line-height: 1.25;
+  }
+  .card-year {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 1.4rem;
+    display: block;
+  }
+  .card-desc {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 2;
+    margin-bottom: 2.2rem;
+    max-height: none;
+  }
+
+  /* Video embed */
+  .card-video {
+    position: relative;
+    aspect-ratio: 16/9;
+    margin-bottom: 1.4rem;
+    overflow: hidden;
+    background: #000;
+  }
+  .card-video iframe {
+    width: 100%; height: 100%;
+    border: none;
+    display: block;
+  }
+  .video-placeholder {
+    width: 100%; height: 100%;
+    background: var(--navy-deep);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.8rem;
+    cursor: pointer;
+  }
+  .video-play-btn {
+    width: 52px; height: 52px;
+    border: 1.5px solid rgba(184,150,90,0.6);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s;
+  }
+  .video-placeholder:hover .video-play-btn {
+    background: rgba(184,150,90,0.15);
+    border-color: var(--gold);
+  }
+  .video-play-btn svg { margin-left: 3px; }
+  .video-placeholder span {
+    font-family: "Cinzel", serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .card-footer {
+    display: flex; justify-content: flex-end; align-items: center;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--cream-dark);
+  }
+  .card-inquiry {
+    font-family: "Cinzel", serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--navy);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 1px;
+    transition: color 0.3s;
+    white-space: nowrap;
+  }
+  .card-inquiry:hover { color: var(--gold); }
+
+  /* EMPTY SLOT */
+  .instrument-card.empty {
+    border: 1px dashed var(--cream-dark);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 400px;
+    text-align: center;
+    padding: 3rem;
+    cursor: default;
+    background: #fafafa;
+  }
+  .instrument-card.empty:hover { transform: none; box-shadow: none; }
+  .empty-icon { margin-bottom: 1rem; opacity: 0.2; }
+  .empty-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .empty-sub { font-size: 0.85rem; font-style: italic; color: #bbb; }
+
+  /* CTA STRIP */
+  .cta-strip {
+    background: var(--navy-deep);
+    padding: 5rem 4rem;
+    text-align: center;
+  }
+  .cta-strip h2 {
+    font-family: "Cinzel", serif;
+    font-size: clamp(1.4rem, 2vw, 2rem);
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 0.8rem;
+  }
+  .cta-strip p {
+    font-size: 0.95rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 2.5rem;
+    max-width: 500px;
+    margin-left: auto; margin-right: auto;
+  }
+  .btn-gold {
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--navy-deep);
+    background: var(--gold);
+    padding: 1rem 2.8rem;
+    text-decoration: none;
+    border: 1px solid var(--gold);
+    transition: all 0.3s;
+    display: inline-block;
+  }
+  .btn-gold:hover { background: var(--gold-light); border-color: var(--gold-light); }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy-deep);
+    padding: 3rem 4rem 2rem;
+    border-top: 1px solid rgba(184,150,90,0.2);
+  }
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 2rem;
+  }
+  .footer-brand { font-family: "Cinzel", serif; color: #fff; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; }
+  .footer-brand span { display: block; color: var(--gold); font-size: 0.6rem; margin-top: 0.3rem; letter-spacing: 0.3em; }
+  .footer-links { display: flex; gap: 3.5rem; list-style: none; }
+  .footer-links a {
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(247,243,237,0.4); text-decoration: none; transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { max-width: 1200px; margin: 0 auto; text-align: center; font-size: 0.75rem; color: rgba(247,243,237,0.2); font-family: "Cinzel", serif; letter-spacing: 0.1em; }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    nav ul { display: none; }
+      .collection-section { padding: 3rem 1.5rem; }
+    .instruments-grid { grid-template-columns: 1fr; }
+    footer, .cta-strip { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .footer-inner { flex-direction: column; gap: 1.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Dom Skrzypcowy<br>J&S Fine Violins</a>
+  <ul>
+    <li><a href="index.html#historia">Historia</a></li>
+    <li><a href="index.html#filary">Rzemiosło</a></li>
+    <li><a href="kolekcja.html" class="active">Kolekcja</a></li>
+    <li><a href="index.html#dla-kogo">Dla Kogo</a></li>
+    <li><a href="biblioteka.html">Biblioteka</a></li>
+    <li><a href="index.html#kontakt">Kontakt</a></li>
+  </ul>
+  <a href="index.html#kontakt" class="nav-cta">Umów Wizytę</a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <p class="page-header-eyebrow">Dom Skrzypcowy · J&S Fine Violins</p>
+  <h1>Kolekcja Instrumentów</h1>
+  <p>Każdy instrument to odrębna historia. Od XVII wieku aż po czasy współczesne.</p>
+</div>
+
+
+<!-- INSTRUMENTS GRID -->
+<div class="collection-section">
+  <div class="instruments-grid" id="grid">
+
+    <!-- INSTRUMENT 1 – przykładowy wypełniony -->
+    <div class="instrument-card reveal" data-era="barok" data-status="dostepne">
+      <div class="card-photo">
+        <div class="card-photo-placeholder">
+          <svg width="60" height="130" viewBox="0 0 60 130" fill="none">
+            <ellipse cx="30" cy="38" rx="16" ry="21" stroke="rgba(184,150,90,0.6)" stroke-width="1.5"/>
+            <ellipse cx="30" cy="92" rx="19" ry="25" stroke="rgba(184,150,90,0.6)" stroke-width="1.5"/>
+            <path d="M14 38 Q11 63 11 77" stroke="rgba(184,150,90,0.5)" stroke-width="1.5" fill="none"/>
+            <path d="M46 38 Q49 63 49 77" stroke="rgba(184,150,90,0.5)" stroke-width="1.5" fill="none"/>
+            <rect x="27" y="14" width="6" height="26" rx="2" fill="rgba(184,150,90,0.2)" stroke="rgba(184,150,90,0.5)" stroke-width="1"/>
+            <path d="M27 14 Q24 7 26 3 Q30 0 34 3 Q36 7 33 11" stroke="rgba(184,150,90,0.6)" stroke-width="1.2" fill="none"/>
+          </svg>
+          <span>Dodaj zdjęcie instrumentu</span>
+        </div>
+        <div class="card-era-badge">XVII wiek · Barok</div>
+      </div>
+      <div class="card-body">
+        <span class="card-maker">Nieznany lutnik włoski</span>
+        <h2 class="card-name">Skrzypce barokowe</h2>
+        <span class="card-year">ok. 1680, Cremona (atrybucja)</span>
+        <p class="card-desc">Wyjątkowy instrument z przełomu XVII wieku, zachowany w stanie bliskim oryginalnemu – z nielicznymi śladami napraw dokumentującymi jego burzliwą historię. Płyta wierzchnia ze świerku górskiego o wyjątkowo regularnym słoju, spód i boczki z klonu o subtelnym płomieniu. Lakier olejny w głębokim, bursztynowym odcieniu zachował swoją pierwotną przezroczystość i blask.<br><br>
+Brzmienie instrumentu zaskakuje dojrzałością i ciepłem rzadko spotykanym we współczesnych skrzypcach – bogata, złocista barwa w rejonie G i D, przejrzysta i nośna struna E. Instrument przeszedł przez nasze ręce: wymiana duszy, korekta podstawnika pod kąt i wysokość, dopasowanie prożka. Gotowy do gry od pierwszego smyczka, doskonały zarówno dla kolekcjonera jak i aktywnego wykonawcy muzyki dawnej.</p>
+
+        <!-- YouTube embed placeholder -->
+        <div class="card-video">
+          <div class="video-placeholder" onclick="loadVideo(this, 'VIDEO_ID_1')">
+            <div class="video-play-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="rgba(184,150,90,0.9)"><polygon points="6,3 20,12 6,21"/></svg>
+            </div>
+            <span>Posłuchaj brzmienia</span>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <a href="index.html#kontakt" class="card-inquiry">Zapytaj →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- INSTRUMENT 2 -->
+    <div class="instrument-card reveal" data-era="romantyzm" data-status="dostepne">
+      <div class="card-photo">
+        <div class="card-photo-placeholder">
+          <svg width="60" height="130" viewBox="0 0 60 130" fill="none">
+            <ellipse cx="30" cy="38" rx="16" ry="21" stroke="rgba(184,150,90,0.6)" stroke-width="1.5"/>
+            <ellipse cx="30" cy="92" rx="19" ry="25" stroke="rgba(184,150,90,0.6)" stroke-width="1.5"/>
+            <path d="M14 38 Q11 63 11 77" stroke="rgba(184,150,90,0.5)" stroke-width="1.5" fill="none"/>
+            <path d="M46 38 Q49 63 49 77" stroke="rgba(184,150,90,0.5)" stroke-width="1.5" fill="none"/>
+            <rect x="27" y="14" width="6" height="26" rx="2" fill="rgba(184,150,90,0.2)" stroke="rgba(184,150,90,0.5)" stroke-width="1"/>
+            <path d="M27 14 Q24 7 26 3 Q30 0 34 3 Q36 7 33 11" stroke="rgba(184,150,90,0.6)" stroke-width="1.2" fill="none"/>
+          </svg>
+          <span>Dodaj zdjęcie instrumentu</span>
+        </div>
+        <div class="card-era-badge">XIX wiek · Romantyzm</div>
+      </div>
+      <div class="card-body">
+        <span class="card-maker">Mistrz szkoły niemieckiej</span>
+        <h2 class="card-name">Skrzypce koncertowe</h2>
+        <span class="card-year">ok. 1870, Mittenwald</span>
+        <p class="card-desc">Reprezentatywny przykład rozkwitu szkoły mittenwaldzckiej – regionu, który w XIX wieku rywalizował z Cremoną o prymat w europejskim lutnictwie. Instrument wykonany z wyjątkowo starannie dobranych materiałów: płyta ze świerku alpejskiego o szerokim, równomiernym słoju, tył z jednorodnego klonu bośniackiego z wyraźnym płomieniem. Lakier spirytusowy w ciepłym, czerwonobrązowym tonie – patyna czasu nadała mu głębi i charakteru.<br><br>
+Brzmienie pełne, gęste i projicujące – instrument z łatwością wypełnia dużą salę koncertową bez utraty szczegółowości artykulacji. Szczególnie imponujący w rejestrze C i G – ciemny, altówkowy kolor idealny dla muzyki romantycznej. Po kompleksowym przygotowaniu lutniczym: nowa dusza ze świerku, podstawnik Aubert Mirecourt, wymiana prożka. Instrument polecamy solistom i muzykom orkiestrowym szukającym instrumentu z charakterem i historią.</p>
+
+        <div class="card-video">
+          <div class="video-placeholder" onclick="loadVideo(this, 'VIDEO_ID_2')">
+            <div class="video-play-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="rgba(184,150,90,0.9)"><polygon points="6,3 20,12 6,21"/></svg>
+            </div>
+            <span>Posłuchaj brzmienia</span>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <a href="index.html#kontakt" class="card-inquiry">Zapytaj →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- INSTRUMENT 3 -->
+    <div class="instrument-card reveal" data-era="wspolczesne" data-status="dostepne">
+      <div class="card-photo">
+        <div class="card-photo-placeholder">
+          <svg width="60" height="130" viewBox="0 0 60 130" fill="none">
+            <ellipse cx="30" cy="38" rx="16" ry="21" stroke="rgba(184,150,90,0.6)" stroke-width="1.5"/>
+            <ellipse cx="30" cy="92" rx="19" ry="25" stroke="rgba(184,150,90,0.6)" stroke-width="1.5"/>
+            <path d="M14 38 Q11 63 11 77" stroke="rgba(184,150,90,0.5)" stroke-width="1.5" fill="none"/>
+            <path d="M46 38 Q49 63 49 77" stroke="rgba(184,150,90,0.5)" stroke-width="1.5" fill="none"/>
+            <rect x="27" y="14" width="6" height="26" rx="2" fill="rgba(184,150,90,0.2)" stroke="rgba(184,150,90,0.5)" stroke-width="1"/>
+            <path d="M27 14 Q24 7 26 3 Q30 0 34 3 Q36 7 33 11" stroke="rgba(184,150,90,0.6)" stroke-width="1.2" fill="none"/>
+          </svg>
+          <span>Dodaj zdjęcie instrumentu</span>
+        </div>
+        <div class="card-era-badge">XXI wiek · Współczesne</div>
+      </div>
+      <div class="card-body">
+        <span class="card-maker">Siatkowski Violin Makers</span>
+        <h2 class="card-name">Skrzypce autorskie</h2>
+        <span class="card-year">2023, Polska</span>
+        <p class="card-desc">Instrument wykonany w całości przez mistrza Siatkowskiego w jego pracowni, z materiałów dojrzewających przez minimum 15 lat. Płyta wierzchnia ze świerku tatrzańskiego o wyjątkowo wąskim słoju – pozyskanego na wysokości powyżej 1400 m n.p.m. Spód i boczki z klonu bośniackiego o szerokim, symetrycznym płomieniu. Lakier olejny nakładany ręcznie w kilkunastu warstwach, inspirowany recepturami szkoły cremonańskiej.<br><br>
+Brzmienie charakteryzuje się wyjątkową świetlistością i projekcją – instrument „otwiera się" już od pierwszego smyczka, bez okresu docierania typowego dla nowych skrzypiec. Równowaga między strunami wzorowa, reakcja na smyczek natychmiastowa. Instrument nosi numer katalogowy w rejestrze lutnika i dołączony certyfikat autentyczności z opisem użytych materiałów i dat budowy. Doskonały wybór dla studenta przygotowującego się do konkursów międzynarodowych oraz dla profesjonalisty szukającego nowego, pewnego partnera na scenie.</p>
+
+        <div class="card-video">
+          <div class="video-placeholder" onclick="loadVideo(this, 'VIDEO_ID_3')">
+            <div class="video-play-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="rgba(184,150,90,0.9)"><polygon points="6,3 20,12 6,21"/></svg>
+            </div>
+            <span>Posłuchaj brzmienia</span>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <a href="index.html#kontakt" class="card-inquiry">Zapytaj →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- INSTRUMENT 4 – sprzedany przykład -->
+    <div class="instrument-card reveal" data-era="barok" data-status="sprzedany">
+      <div class="card-photo">
+        <div class="card-photo-placeholder" style="opacity:0.5;">
+          <svg width="60" height="130" viewBox="0 0 60 130" fill="none">
+            <ellipse cx="30" cy="38" rx="16" ry="21" stroke="rgba(184,150,90,0.6)" stroke-width="1.5"/>
+            <ellipse cx="30" cy="92" rx="19" ry="25" stroke="rgba(184,150,90,0.6)" stroke-width="1.5"/>
+            <path d="M14 38 Q11 63 11 77" stroke="rgba(184,150,90,0.5)" stroke-width="1.5" fill="none"/>
+            <path d="M46 38 Q49 63 49 77" stroke="rgba(184,150,90,0.5)" stroke-width="1.5" fill="none"/>
+            <rect x="27" y="14" width="6" height="26" rx="2" fill="rgba(184,150,90,0.2)" stroke="rgba(184,150,90,0.5)" stroke-width="1"/>
+          </svg>
+          <span>Dodaj zdjęcie instrumentu</span>
+        </div>
+        <div class="card-era-badge">XVIII wiek · Barok</div>
+        <div class="card-sold-badge">Sprzedany</div>
+      </div>
+      <div class="card-body">
+        <span class="card-maker">Szkoła francuska</span>
+        <h2 class="card-name">Skrzypce barokowe</h2>
+        <span class="card-year">ok. 1740, Paryż</span>
+        <p class="card-desc">Instrument z kolekcji – wzorcowy przykład osiemnastowiecznego lutnictwa francuskiego w stylu szkoły paryskiej. Smukła, elegancka sylwetka, delikatna inkrustacja narożników i charakterystyczna dla epoki głęboka, wąska skrzynka rezonansowa. Lakier w odcieniu starego wina z piękną, naturalną patyną. Instrument trafił w ręce solisty z renomowanej orkiestry kameralnej – kontynuuje swoją muzyczną podróż.</p>
+
+        <div class="card-footer">
+          <span style="font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:#bbb;">Sprzedany</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PUSTE SLOTY DO UZUPEŁNIENIA -->
+    <div class="instrument-card empty reveal" data-era="all" data-status="all">
+      <div class="empty-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
+        </svg>
+      </div>
+      <span class="empty-label">Instrument do dodania</span>
+      <p class="empty-sub">Tu pojawi się kolejny<br>instrument z kolekcji</p>
+    </div>
+
+    <div class="instrument-card empty reveal" data-era="all" data-status="all">
+      <div class="empty-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
+        </svg>
+      </div>
+      <span class="empty-label">Instrument do dodania</span>
+      <p class="empty-sub">Tu pojawi się kolejny<br>instrument z kolekcji</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- CTA STRIP -->
+<div class="cta-strip">
+  <h2>Chcesz zobaczyć instrument osobiście?</h2>
+  <p>Zapraszamy na indywidualną sesję w Gorzowie Wlkp., Wrocławiu lub Warszawie. Bezpłatnie, bez zobowiązań.</p>
+  <a href="CALENDLY_URL" target="_blank" class="btn-gold">Umów wizytę online &rarr;</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      Dom Skrzypcowy
+      <span>J&S Fine Violins</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html#historia">Historia</a></li>
+      <li><a href="index.html#filary">Rzemiosło</a></li>
+      <li><a href="kolekcja.html">Kolekcja</a></li>
+      <li><a href="index.html#dla-kogo">Dla Kogo</a></li>
+      <li><a href="biblioteka.html">Biblioteka</a></li>
+      <li><a href="index.html#kontakt">Kontakt</a></li>
+    </ul>
+  </div>
+  <p class="footer-copy">© 2025 Dom Skrzypcowy J&S Fine Violins. Wszelkie prawa zastrzeżone.</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll(".reveal");
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add("visible"), i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => obs.observe(el));
+
+  // YouTube lazy load
+  function loadVideo(placeholder, videoId) {
+    if (videoId.startsWith("VIDEO_ID")) {
+      alert("Wstaw ID filmu YouTube, by aktywować odtwarzacz.");
+      return;
+    }
+    const iframe = document.createElement("iframe");
+    iframe.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
+    iframe.allow = "autoplay; encrypted-media";
+    iframe.allowFullscreen = true;
+    placeholder.parentNode.replaceChild(iframe, placeholder);
+  }
+</script>
+</body>
+</html>
