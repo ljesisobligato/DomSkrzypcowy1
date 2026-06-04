@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Rynek instrumentów historycznych | Biblioteka | Dom Skrzypcowy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#1a2744;--navy-deep:#0e1829;--gold:#b8965a;--gold-light:#d4b07a;--cream-dark:#e8e8e8;--text-body:#2c2c2c;--text-muted:#6b6358;}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:#f4f6f9;color:var(--text-body);font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;line-height:1.7;overflow-x:hidden;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 4rem;background:rgba(244,246,249,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,150,90,.2);}
+  .nav-logo{font-family:"Cinzel",serif;font-size:.8rem;letter-spacing:.25em;color:var(--navy);text-transform:uppercase;text-decoration:none;}
+  nav ul{display:flex;gap:2.5rem;list-style:none;}
+  nav ul a{font-family:"Cinzel",serif;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);text-decoration:none;position:relative;transition:color .3s;}
+  nav ul a::after{content:"";position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+  nav ul a:hover,nav ul a.active{color:var(--gold);}
+  nav ul a:hover::after,nav ul a.active::after{transform:scaleX(1);}
+  .nav-cta{font-family:"Cinzel",serif;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:var(--navy);padding:.7rem 1.6rem;text-decoration:none;transition:background .3s;}
+  .nav-cta:hover{background:var(--gold);}
+  footer{background:var(--navy-deep);padding:3rem 4rem 2rem;border-top:1px solid rgba(184,150,90,.2);}
+  .fi{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:2rem;}
+  .fb{font-family:"Cinzel",serif;color:#fff;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;}
+  .fb span{display:block;color:var(--gold);font-size:.6rem;margin-top:.3rem;letter-spacing:.3em;}
+  .fl{display:flex;gap:2rem;list-style:none;flex-wrap:wrap;}
+  .fl a{font-family:"Cinzel",serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(247,243,237,.4);text-decoration:none;transition:color .3s;}
+  .fl a:hover{color:var(--gold);}
+  .fc{max-width:1200px;margin:0 auto;text-align:center;font-size:.72rem;color:rgba(247,243,237,.2);font-family:"Cinzel",serif;letter-spacing:.1em;}
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  @media(max-width:900px){nav{padding:1rem 1.5rem;}nav ul{display:none;}footer{padding:2.5rem 1.5rem 1.5rem;}.fi{flex-direction:column;gap:1.5rem;text-align:center;}}
+
+  .bc{max-width:980px;margin:0 auto;padding:8rem 2rem 0;display:flex;gap:.5rem;align-items:center;font-family:"Cinzel",serif;font-size:.56rem;letter-spacing:.15em;text-transform:uppercase;}
+  .bc a{color:var(--gold);text-decoration:none;}.bc a:hover{text-decoration:underline;}.bc span{color:var(--text-muted);}
+  .ah{max-width:980px;margin:0 auto;padding:2rem 2rem 3rem;border-bottom:1px solid var(--cream-dark);}
+  .ac{font-family:"Cinzel",serif;font-size:.58rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:.8rem;}
+  .at{font-family:"Cinzel",serif;font-size:clamp(1.7rem,3.2vw,2.8rem);font-weight:500;color:var(--navy);line-height:1.2;margin-bottom:1.1rem;}
+  .al{font-size:1.05rem;font-style:italic;color:var(--text-muted);font-weight:300;line-height:1.85;max-width:700px;}
+  .am{display:flex;gap:2rem;margin-top:1.8rem;padding-top:1.4rem;border-top:1px solid var(--cream-dark);}
+  .ami{font-family:"Cinzel",serif;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);}
+  .ami span{display:block;color:var(--navy);margin-top:.2rem;font-size:.68rem;}
+  .al2{max-width:1200px;margin:0 auto;padding:4rem 2rem 6rem;display:grid;grid-template-columns:1fr 280px;gap:4.5rem;align-items:start;}
+  .ab h2{font-family:"Cinzel",serif;font-size:1.2rem;font-weight:500;color:var(--navy);margin:2.8rem 0 1.1rem;padding-top:2rem;border-top:1px solid var(--cream-dark);line-height:1.3;}
+  .ab h2:first-child{margin-top:0;padding-top:0;border-top:none;}
+  .ab h3{font-family:"Cinzel",serif;font-size:.95rem;font-weight:500;color:var(--navy);margin:1.8rem 0 .7rem;}
+  .ab p{font-size:1rem;color:var(--text-body);font-weight:300;line-height:1.9;margin-bottom:1.3rem;}
+  .ab ul{padding-left:1.3rem;margin-bottom:1.3rem;}
+  .ab ul li{font-size:1rem;font-weight:300;color:var(--text-body);line-height:1.8;margin-bottom:.3rem;}
+  .ab blockquote{border-left:2px solid var(--gold);padding:1.1rem 1.8rem;margin:2.2rem 0;background:#fff;}
+  .ab blockquote p{font-style:italic;color:var(--text-muted);margin:0;font-size:1.02rem;}
+  .hb{background:var(--navy-deep);padding:1.8rem 2.2rem;margin:2.2rem 0;}
+  .hb p{color:rgba(255,255,255,.72);margin:0;font-style:italic;font-size:.95rem;}
+  .hb strong{color:var(--gold-light);font-style:normal;}
+  .as{position:sticky;top:95px;}
+  .sb{border:1px solid var(--cream-dark);padding:1.6rem;margin-bottom:1.8rem;background:#fff;}
+  .sb h3{font-family:"Cinzel",serif;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);margin-bottom:1.1rem;padding-bottom:.7rem;border-bottom:1px solid var(--cream-dark);}
+  .sb ul{list-style:none;}
+  .sb li{border-bottom:1px solid var(--cream-dark);}
+  .sb li:last-child{border-bottom:none;}
+  .sb a,.rl{display:block;padding:.5rem 0;font-size:.86rem;color:var(--text-muted);text-decoration:none;font-style:italic;transition:color .2s,padding-left .2s;}
+  .sb a:hover,.rl:hover{color:var(--navy);padding-left:.35rem;}
+  .rl{border-bottom:1px solid var(--cream-dark);}
+  .rl:last-child{border-bottom:none;}
+  .bl{display:inline-flex;align-items:center;gap:.5rem;font-family:"Cinzel",serif;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);text-decoration:none;margin-bottom:1.8rem;transition:color .3s;}
+  .bl:hover{color:var(--navy);}
+  .cb{background:var(--navy);padding:1.8rem;text-align:center;}
+  .cb p{font-size:.84rem;color:rgba(255,255,255,.55);font-style:italic;margin-bottom:1.1rem;line-height:1.6;}
+  .cb a{font-family:"Cinzel",serif;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--navy-deep);background:var(--gold);padding:.75rem 1.4rem;text-decoration:none;display:inline-block;}
+  @media(max-width:1000px){.al2{grid-template-columns:1fr;}.as{position:static;}}
+  @media(max-width:700px){.ah,.bc{padding-left:1.5rem;padding-right:1.5rem;}.al2{padding:2rem 1.5rem 4rem;}}
+</style>
+</head><body>
+<nav>
+  <a href="index.html" class="nav-logo">Dom Skrzypcowy<br>J&S Fine Violins</a>
+  <ul>
+    <li><a href="index.html#historia">Historia</a></li>
+    <li><a href="kolekcja.html">Kolekcja</a></li>
+    <li><a href="historia.html">O Nas</a></li>
+    <li><a href="biblioteka.html" class="active">Biblioteka</a></li>
+    <li><a href="index.html#kontakt">Kontakt</a></li>
+  </ul>
+  <a href="https://calendar.app.google/CgqMDCvDba3EB7J49" target="_blank" class="nav-cta">Umów Wizytę</a>
+</nav>
+<div class="bc reveal"><a href="biblioteka.html">Biblioteka</a><span>&rsaquo;</span><a href="kolekcjonerstwo-i-inwestycje.html">Kolekcjonerstwo i inwestycje</a><span>&rsaquo;</span><span style="color:var(--navy);">Rynek instrumentów historycznych</span></div>
+<div class="ah reveal">
+  <span class="ac">Kolekcjonerstwo i inwestycje</span>
+  <h1 class="at">Rynek instrumentów historycznych</h1>
+  <p class="al">Jak działa rynek instrumentów smyczkowych? Aukcje, domy lutnicze, prywatni sprzedawcy – gdzie szukać i na co uważać.</p>
+  <div class="am">
+    <div class="ami">Autor <span>Łukasz Jesis</span></div>
+    <div class="ami">Czas czytania <span>ok. 7 min</span></div>
+  </div>
+</div>
+<div class="al2">
+  <div class="ab reveal"><h2 id="rynek">Jak działa rynek instrumentów smyczkowych</h2>
+    <p>Rynek instrumentów historycznych jest rynkiem niszowym, niepłynnym i wymagającym eksperckiej wiedzy. Wartość instrumentu ustala się w momencie transakcji, a ceny podobnych instrumentów mogą różnić się kilkukrotnie w zależności od certyfikacji i stanu zachowania. Trzy główne kanały: domy aukcyjne, domy lutnicze i prywatni sprzedawcy.</p>
+    <h2 id="aukcje">Domy aukcyjne – przejrzystość i cena</h2>
+    <p>Aukcje oferują przejrzystość cenową – wyniki są publiczne. Tarisio specjalizuje się wyłącznie w instrumentach smyczkowych i jest dziś najważniejszym barometrem cenowym. Wadą aukcji jest prowizja kupującego sięgająca 25–30% ceny, brak negocjacji i ograniczony czas na ocenę instrumentu.</p>
+    <blockquote><p>Aukcja to nie miejsce dla początkującego kolekcjonera działającego samodzielnie. Dla kogoś z doświadczeniem – najlepsze miejsce do znalezienia okazji.</p></blockquote>
+    <h2 id="lutnicze">Domy lutnicze – serwis i gwarancja</h2>
+    <p>Renomowane domy lutnicze oferują doradztwo, możliwość długiego wypróbowania instrumentu i gwarancję autentyczności. Ceny są zazwyczaj wyższe niż na aukcjach, ale kupujesz z bezpieczeństwem. Dobre domy znają historię każdego instrumentu który przez nie przeszedł.</p>
+    <h2 id="trendy">Trendy cenowe – skrzypce jako inwestycja</h2>
+    <p>Indeks cenowy skrzypiec cremonańskich wzrósł w ostatnich 30 latach kilkukrotnie. Instrumenty "drugiego rzędu" – dobrej jakości, ale bez wybitnej dokumentacji – zyskiwały wolniej ale stabilniej. Dla inwestora o mniejszym kapitale to często lepsza propozycja niż ryzykowne zakupy na szczycie rynku cremonańskiego.</p>
+    <div class="hb"><p><strong>Nasza rola:</strong> Dom Skrzypcowy łączy wiedzę kolekcjonerską Łukasza Jesisa z ekspercką oceną Klemensa Siatkowskiego. Każdy instrument ma pełną dokumentację i uczciwie wyceniony.</p></div></div>
+  <aside class="as">
+    <a href="biblioteka.html" class="bl">&larr; Biblioteka</a>
+    <div class="sb"><h3>Spis treści</h3><ul><li><a href="#rynek">Jak działa rynek</a></li><li><a href="#aukcje">Domy aukcyjne</a></li><li><a href="#lutnicze">Domy lutnicze</a></li><li><a href="#trendy">Trendy cenowe</a></li></ul></div>
+    <div class="sb"><h3>Powiązane</h3><a href="wartosci-skrzypiec.html" class="rl">&#9672;&nbsp; Wartość instrumentu</a><a href="certyfikat.html" class="rl">&#9672;&nbsp; Certyfikat autentyczności</a><a href="kolekcjonerstwo.html" class="rl">&#9672;&nbsp; Budowanie kolekcji</a></div>
+    <div class="cb"><p>Chcesz zobaczyć instrument osobiście?</p><a href="https://calendar.app.google/CgqMDCvDba3EB7J49" target="_blank">Umów wizytę &rarr;</a></div>
+  </aside>
+</div>
+<footer>
+  <div class="fi">
+    <div class="fb">Dom Skrzypcowy<span>J&S Fine Violins</span></div>
+    <ul class="fl">
+      <li><a href="index.html">Strona główna</a></li>
+      <li><a href="kolekcja.html">Kolekcja</a></li>
+      <li><a href="historia.html">O Nas</a></li>
+      <li><a href="biblioteka.html">Biblioteka</a></li>
+      <li><a href="index.html#kontakt">Kontakt</a></li>
+    </ul>
+  </div>
+  <p class="fc">© 2025 Dom Skrzypcowy J&S Fine Violins. Wszelkie prawa zastrzeżone.</p>
+</footer>
+<script>
+document.querySelectorAll(".reveal").forEach(el=>{
+  new IntersectionObserver(([e])=>{if(e.isIntersecting)el.classList.add("visible");},{threshold:.1}).observe(el);
+});
+</script>
+</body></html>
