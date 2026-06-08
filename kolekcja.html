@@ -420,6 +420,90 @@
     footer, .cta-strip { padding-left: 1.5rem; padding-right: 1.5rem; }
     .footer-inner { flex-direction: column; gap: 1.5rem; text-align: center; }
   }
+
+  /* Coming soon state */
+  .instrument-card.coming-soon {
+    filter: grayscale(0.85);
+    opacity: 0.55;
+    pointer-events: none;
+    position: relative;
+  }
+  .instrument-card.coming-soon::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: rgba(244, 246, 249, 0.3);
+    pointer-events: none;
+  }
+  .coming-soon-banner {
+    background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-mid) 100%);
+    padding: 3rem 2.5rem;
+    margin: 0 auto 5rem;
+    max-width: 1400px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(184,150,90,0.25);
+  }
+  .coming-soon-banner::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(184,150,90,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .coming-soon-eye {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: block;
+    position: relative;
+  }
+  .coming-soon-banner h2 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.4rem, 2vw, 1.9rem);
+    font-weight: 500;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  .coming-soon-banner h2 em {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--gold-light);
+  }
+  .coming-soon-banner p {
+    font-size: 1rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    max-width: 600px;
+    margin: 0 auto 1.8rem;
+    line-height: 1.7;
+    position: relative;
+  }
+  .coming-soon-cta {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--navy-deep);
+    background: var(--gold);
+    padding: 0.9rem 2.4rem;
+    text-decoration: none;
+    border: 1px solid var(--gold);
+    transition: all 0.3s;
+    display: inline-block;
+    position: relative;
+  }
+  .coming-soon-cta:hover {
+    background: var(--gold-light);
+    border-color: var(--gold-light);
+  }
+
 </style>
 </head>
 <body>
@@ -449,10 +533,19 @@
 
 <!-- INSTRUMENTS GRID -->
 <div class="collection-section">
-  <div class="instruments-grid" id="grid">
+  
+<!-- COMING SOON BANNER -->
+<div class="coming-soon-banner reveal">
+  <span class="coming-soon-eye">Kolekcja w przygotowaniu</span>
+  <h2>Instrumenty będą prezentowane<br><em>systematycznie</em></h2>
+  <p>Pracujemy nad kompletną prezentacją naszej kolekcji – każdy instrument zasługuje na pełną dokumentację, profesjonalne zdjęcia i nagranie audio. Skontaktuj się z nami bezpośrednio, aby umówić wizytę i obejrzeć dostępne instrumenty osobiście.</p>
+  <a href="https://calendar.app.google/CgqMDCvDba3EB7J49" target="_blank" rel="noopener noreferrer" class="coming-soon-cta">Umów wizytę &rarr;</a>
+</div>
+
+<div class="instruments-grid" id="grid">
 
     <!-- INSTRUMENT 1 – przykładowy wypełniony -->
-    <div class="instrument-card reveal" data-era="barok" data-status="dostepne">
+    <div class="instrument-card coming-soon reveal" data-era="barok" data-status="dostepne">
       <div class="card-photo">
         <div class="card-photo-placeholder">
           <svg width="60" height="130" viewBox="0 0 60 130" fill="none">
@@ -491,7 +584,7 @@ Brzmienie instrumentu zaskakuje dojrzałością i ciepłem rzadko spotykanym we 
     </div>
 
     <!-- INSTRUMENT 2 -->
-    <div class="instrument-card reveal" data-era="romantyzm" data-status="dostepne">
+    <div class="instrument-card coming-soon reveal" data-era="romantyzm" data-status="dostepne">
       <div class="card-photo">
         <div class="card-photo-placeholder">
           <svg width="60" height="130" viewBox="0 0 60 130" fill="none">
@@ -529,7 +622,7 @@ Brzmienie pełne, gęste i projicujące – instrument z łatwością wypełnia 
     </div>
 
     <!-- INSTRUMENT 3 -->
-    <div class="instrument-card reveal" data-era="wspolczesne" data-status="dostepne">
+    <div class="instrument-card coming-soon reveal" data-era="wspolczesne" data-status="dostepne">
       <div class="card-photo">
         <div class="card-photo-placeholder">
           <svg width="60" height="130" viewBox="0 0 60 130" fill="none">
@@ -567,7 +660,7 @@ Brzmienie charakteryzuje się wyjątkową świetlistością i projekcją – ins
     </div>
 
     <!-- INSTRUMENT 4 – sprzedany przykład -->
-    <div class="instrument-card reveal" data-era="barok" data-status="sprzedany">
+    <div class="instrument-card coming-soon reveal" data-era="barok" data-status="sprzedany">
       <div class="card-photo">
         <div class="card-photo-placeholder" style="opacity:0.5;">
           <svg width="60" height="130" viewBox="0 0 60 130" fill="none">
@@ -595,7 +688,7 @@ Brzmienie charakteryzuje się wyjątkową świetlistością i projekcją – ins
     </div>
 
     <!-- PUSTE SLOTY DO UZUPEŁNIENIA -->
-    <div class="instrument-card empty reveal" data-era="all" data-status="all">
+    <div class="instrument-card coming-soon empty reveal" data-era="all" data-status="all">
       <div class="empty-icon">
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">
           <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
@@ -605,7 +698,7 @@ Brzmienie charakteryzuje się wyjątkową świetlistością i projekcją – ins
       <p class="empty-sub">Tu pojawi się kolejny<br>instrument z kolekcji</p>
     </div>
 
-    <div class="instrument-card empty reveal" data-era="all" data-status="all">
+    <div class="instrument-card coming-soon empty reveal" data-era="all" data-status="all">
       <div class="empty-icon">
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">
           <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
